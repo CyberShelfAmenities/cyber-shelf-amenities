@@ -315,26 +315,29 @@ forwards;
 /* SCROLL INDICATOR */
 
 .scroll-hint {
-position: absolute;
+  position: absolute;
 
-bottom: 5vh;
-left: 50%;
+  bottom: 5vh;
+  left: 0;
+  right: 0;
 
-transform: translateX(-50%);
+  width: 100%;
 
-color: var(--gray);
+  text-align: center;
 
-font-size: 0.6rem;
+  color: var(--gray);
 
-letter-spacing: 0.22em;
+  font-size: 0.6rem;
 
-opacity: 0;
+  letter-spacing: 0.22em;
 
-animation:
-openingFadeIn
-0.7s
-2.8s
-forwards;
+  opacity: 0;
+
+  animation:
+    openingFadeIn
+    0.7s
+    2.8s
+    forwards;
 }
 
 
