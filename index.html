@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cyber Shelf Amenities</title>
+
+<meta
+name="description"
+content="Cyber Shelf Amenities provides convenient access to snacks, drinks and everyday essentials through a professionally maintained smart cooler."
+>
+
+<style>
+
+/* =========================================================
+CYBER SHELF AMENITIES
+VERSION 1.0
+========================================================= */
+
+:root {
+--blue: #1769d2;
+--dark: #14171c;
+--gray: #626a74;
+--light-gray: #e1e5ea;
+--soft: #f5f7fa;
+--white: #ffffff;
+
+--max-width: 1180px;
+--header-height: 72px;
+}
+
+
+/* =========================================================
+BASIC RESET
+========================================================= */
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background: var(--white);
+color: var(--dark);
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Helvetica,
+Arial,
+sans-serif;
+
+line-height: 1.6;
+-webkit-font-smoothing: antialiased;
+}
+
+a {
+color: inherit;
+text-decoration: none;
+}
+
+button,
+input,
+textarea {
+font: inherit;
+}
+
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.site-header {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: var(--header-height);
+
+z-index: 100;
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+padding: 0 4vw;
+
+background: rgba(255, 255, 255, 0.94);
+backdrop-filter: blur(15px);
+
+border-bottom: 1px solid rgba(225, 229, 234, 0.8);
+
+opacity: 0;
+transform: translateY(-15px);
+
+pointer-events: none;
+
+transition:
+opacity 0.6s ease,
+transform 0.6s ease;
+}
+
+.site-header.visible {
+opacity: 1;
+transform: translateY(0);
+pointer-events: auto;
+}
+
+
+/* COMPANY NAME */
+
+.brand {
+display: flex;
+flex-direction: column;
+
+font-size: 0.82rem;
+font-weight: 800;
+
+letter-spacing: 0.15em;
+
+line-height: 0.9;
+}
+
+.brand-amenities {
+display: flex;
+align-items: center;
+justify-content: center;
+
+gap: 7px;
+
+margin-top: 5px;
+
+font-size: 0.65rem;
+letter-spacing: 0.25em;
+}
+
+.brand-line {
+width: 17px;
+height: 1px;
+
+background: var(--blue);
+}
+
+
+/* DESKTOP NAVIGATION */
+
+.nav-links {
+display: flex;
+align-items: center;
+
+gap: 28px;
+
+font-size: 0.68rem;
+font-weight: 650;
+
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+
+.nav-links a {
+opacity: 0.7;
+
+transition:
+opacity 0.2s ease,
+color 0.2s ease;
+}
+
+.nav-links a:hover {
+opacity: 1;
+color: var(--blue);
+}
+
+.nav-contact {
+padding: 9px 13px;
+
+border: 1px solid var(--dark);
+
+opacity: 1 !important;
+}
+
+
+/* =========================================================
+OPENING SCREEN
+========================================================= */
+
+.opening {
+width: 100%;
+height: 100svh;
+min-height: 600px;
+
+position: relative;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+overflow: hidden;
+
+background: var(--white);
+}
+
+.opening-content {
+text-align: center;
+
+transition:
+transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+opacity 0.7s ease;
+}
+
+/*
+When the user starts scrolling,
+the opening content moves away.
+*/
+
+.opening.scrolling .opening-content {
+transform: translateY(-16vh) scale(0.82);
+opacity: 0;
+pointer-events: none;
+}
+
+
+/* TEMPORARY LOGO */
+
+/*
+THIS WILL EVENTUALLY BE REPLACED
+WITH YOUR REAL TRANSPARENT IMAGE.
+*/
+
+.temporary-logo {
+display: inline-block;
+
+font-size: clamp(2.2rem, 7vw, 5.8rem);
+
+font-weight: 850;
+
+letter-spacing: 0.17em;
+
+line-height: 0.95;
+
+opacity: 0;
+
+animation:
+openingFadeIn
+0.9s
+0.25s
+cubic-bezier(0.2, 0.7, 0.2, 1)
+forwards;
+}
+
+
+/* AMENITIES + LINES */
+
+.temporary-amenities {
+display: flex;
+
+align-items: center;
+justify-content: center;
+
+gap: 12px;
+
+margin-top: 10px;
+
+font-size: clamp(0.8rem, 2vw, 1.5rem);
+
+font-weight: 700;
+
+letter-spacing: 0.3em;
+
+opacity: 0;
+
+animation:
+openingFadeIn
+0.8s
+1.05s
+cubic-bezier(0.2, 0.7, 0.2, 1)
+forwards;
+}
+
+.temporary-amenities-line {
+width: clamp(30px, 8vw, 120px);
+height: 2px;
+
+background: var(--blue);
+}
+
+
+/* TAGLINE */
+
+.opening-tagline {
+margin-top: 23px;
+
+font-size: clamp(0.9rem, 2.2vw, 1.45rem);
+
+font-style: italic;
+
+letter-spacing: 0.03em;
+
+opacity: 0;
+
+animation:
+openingFadeIn
+0.8s
+1.9s
+cubic-bezier(0.2, 0.7, 0.2, 1)
+forwards;
+}
+
+
+/* SCROLL INDICATOR */
+
+.scroll-hint {
+position: absolute;
+
+bottom: 5vh;
+left: 50%;
+
+transform: translateX(-50%);
+
+color: var(--gray);
+
+font-size: 0.6rem;
+
+letter-spacing: 0.22em;
+
+opacity: 0;
+
+animation:
+openingFadeIn
+0.7s
+2.8s
+forwards;
+}
+
+
+@keyframes openingFadeIn {
+
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+
+to {
+opacity: 1;
+transform: translateY(0);
+}
+
+}
+
+
+/* =========================================================
+GENERAL SECTIONS
+========================================================= */
+
+.section {
+padding:
+clamp(90px, 11vw, 160px)
+5vw;
+}
+
+.section-inner {
+width: 100%;
+max-width: var(--max-width);
+
+margin: 0 auto;
+}
+
+
+/* =========================================================
+TYPOGRAPHY
+========================================================= */
+
+.eyebrow {
+margin-bottom: 18px;
+
+color: var(--blue);
+
+font-size: 0.7rem;
+
+font-weight: 800;
+
+letter-spacing: 0.18em;
+}
+
+h1,
+h2,
+h3 {
+line-height: 1.05;
+
+letter-spacing: -0.04em;
+}
+
+h1 {
+max-width: 750px;
+
+margin-bottom: 25px;
+
+font-size: clamp(2.4rem, 5vw, 4.7rem);
+
+font-weight: 720;
+}
+
+h2 {
+margin-bottom: 22px;
+
+font-size: clamp(2rem, 4vw, 3.7rem);
+
+font-weight: 720;
+}
+
+h3 {
+margin-bottom: 12px;
+
+font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+
+font-weight: 700;
+}
+
+.lead {
+max-width: 720px;
+
+color: var(--gray);
+
+font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+
+line-height: 1.75;
+}
+
+
+/* =========================================================
+WHAT WE PROVIDE
+========================================================= */
+
+.provide-layout {
+display: grid;
+
+grid-template-columns: 1fr 0.9fr;
+
+gap: clamp(45px, 8vw, 120px);
+
+align-items: center;
+}
+
+
+/* TEMPORARY COOLER */
+
+.cooler-placeholder {
+width: 100%;
+max-width: 360px;
+
+height: 510px;
+
+margin: 0 auto;
+
+position: relative;
+
+border:
+1px solid
+#c5ccd5;
+
+border-radius: 18px;
+
+background:
+linear-gradient(
+135deg,
+#f9fafc,
+#e8edf3
+);
+
+box-shadow:
+0 30px 70px
+rgba(20, 30, 45, 0.1);
+
+overflow: hidden;
+}
+
+.cooler-placeholder::before {
+content: "";
+
+position: absolute;
+
+inset: 0;
+
+background:
+linear-gradient(
+115deg,
+rgba(255,255,255,0.85),
+transparent 38%,
+rgba(255,255,255,0.25) 39%,
+transparent 57%
+);
+}
+
+.cooler-title {
+position: absolute;
+
+top: 20px;
+left: 20px;
+
+color: var(--gray);
+
+font-size: 0.58rem;
+
+letter-spacing: 0.18em;
+}
+
+.cooler-shelves {
+position: absolute;
+
+top: 95px;
+right: 25px;
+bottom: 28px;
+left: 25px;
+
+display: grid;
+
+grid-template-rows:
+repeat(4, 1fr);
+
+gap: 15px;
+}
+
+.cooler-shelf {
+position: relative;
+
+border-bottom:
+1px solid
+#c7ced8;
+}
+
+.cooler-shelf::after {
+content: "";
+
+position: absolute;
+
+left: 8%;
+right: 8%;
+bottom: 15px;
+
+height: 45%;
+
+border-radius: 5px;
+
+background:
+linear-gradient(
+90deg,
+#dce3ec,
+#f9fbfd,
+#d2dae5
+);
+}
+
+
+/* =========================================================
+FOUR PRODUCT CATEGORIES
+========================================================= */
+
+.categories {
+display: grid;
+
+grid-template-columns:
+repeat(4, 1fr);
+
+margin-top: 110px;
+
+border-top:
+1px solid
+var(--light-gray);
+}
+
+.category {
+padding:
+30px
+28px
+15px
+0;
+
+border-right:
+1px solid
+var(--light-gray);
+}
+
+.category:not(:first-child) {
+padding-left: 28px;
+}
+
+.category:last-child {
+border-right: 0;
+}
+
+.category-number {
+margin-bottom: 30px;
+
+color: var(--blue);
+
+font-size: 0.62rem;
+
+letter-spacing: 0.12em;
+}
+
+.category h3 {
+margin-bottom: 12px;
+
+font-size: 0.95rem;
+
+letter-spacing: 0.13em;
+}
+
+.category p {
+color: var(--gray);
+
+font-size: 0.9rem;
+
+line-height: 1.65;
+}
+
+
+/* =========================================================
+FOR THE PEOPLE
+========================================================= */
+
+.tinted {
+background: var(--soft);
+}
+
+.section-heading {
+margin-bottom: 55px;
+}
+
+.narrow {
+max-width: 700px;
+}
+
+
+/* =========================================================
+INTERACTIVE FACILITY SELECTOR
+========================================================= */
+
+.facility-selector {
+display: flex;
+
+flex-wrap: wrap;
+
+align-items: center;
+
+border-top:
+1px solid
+var(--light-gray);
+
+border-bottom:
+1px solid
+var(--light-gray);
+
+margin-bottom: 48px;
+}
+
+.facility-button {
+position: relative;
+
+padding: 18px;
+
+border: 0;
+
+background: transparent;
+
+color: var(--gray);
+
+font-size: 0.66rem;
+
+font-weight: 750;
+
+letter-spacing: 0.1em;
+
+cursor: pointer;
+}
+
+.facility-button:first-child {
+padding-left: 0;
+}
+
+.facility-button::after {
+content: "";
+
+position: absolute;
+
+left: 18px;
+right: 18px;
+
+bottom: -1px;
+
+height: 2px;
+
+background: transparent;
+
+transition:
+background 0.25s ease;
+}
+
+.facility-button:first-child::after {
+left: 0;
+}
+
+.facility-button.active {
+color: var(--dark);
+}
+
+.facility-button.active::after {
+background: var(--blue);
+}
+
+
+/* FACILITY CONTENT */
+
+.facility-content {
+min-height: 200px;
+
+position: relative;
+}
+
+.facility-panel {
+display: none;
+
+max-width: 780px;
+
+animation:
+facilityFade
+0.45s
+ease
+forwards;
+}
+
+.facility-panel.active {
+display: block;
+}
+
+.facility-panel p {
+color: var(--gray);
+
+font-size: 1rem;
+
+line-height: 1.8;
+}
+
+@keyframes facilityFade {
+
+from {
+opacity: 0;
+transform: translateY(8px);
+}
+
+to {
+opacity: 1;
+transform: translateY(0);
+}
+
+}
+
+
+/* =========================================================
+HOW WE TAKE CARE OF IT
+========================================================= */
+
+.care-grid {
+display: grid;
+
+grid-template-columns:
+repeat(4, 1fr);
+
+margin-top: 65px;
+
+border-top:
+1px solid
+var(--light-gray);
+
+border-bottom:
+1px solid
+var(--light-gray);
+}
+
+.care-card {
+padding:
+35px
+28px
+38px
+0;
+
+border-right:
+1px solid
+var(--light-gray);
+}
+
+.care-card:not(:first-child) {
+padding-left: 28px;
+}
+
+.care-card:last-child {
+border-right: 0;
+}
+
+.care-number {
+display: block;
+
+margin-bottom: 40px;
+
+color: var(--blue);
+
+font-size: 0.62rem;
+
+letter-spacing: 0.12em;
+}
+
+.care-card h3 {
+margin-bottom: 12px;
+
+font-size: 0.9rem;
+
+letter-spacing: 0.13em;
+}
+
+.care-card p {
+color: var(--gray);
+
+font-size: 0.9rem;
+
+line-height: 1.65;
+}
+
+.statement {
+max-width: 760px;
+
+margin:
+70px
+auto
+0;
+
+text-align: center;
+}
+
+.statement p {
+font-size:
+clamp(
+1.3rem,
+2.4vw,
+2rem
+);
+
+line-height: 1.35;
+}
+
+
+/* =========================================================
+90 DAY TRIAL
+========================================================= */
+
+.trial-layout {
+display: grid;
+
+grid-template-columns:
+0.65fr
+1.35fr;
+
+gap:
+clamp(
+45px,
+10vw,
+150px
+);
+
+align-items: start;
+}
+
+.trial-number {
+display: flex;
+
+flex-direction: column;
+
+color: var(--blue);
+
+line-height: 0.8;
+}
+
+.trial-number span {
+font-size:
+clamp(
+7rem,
+18vw,
+14rem
+);
+
+font-weight: 750;
+
+letter-spacing: -0.09em;
+}
+
+.trial-number small {
+margin-top: 16px;
+
+margin-left: 12px;
+
+font-size: 1rem;
+
+font-weight: 800;
+
+letter-spacing: 0.2em;
+}
+
+.trial-copy p {
+max-width: 720px;
+
+margin-bottom: 20px;
+
+color: var(--gray);
+
+font-size: 1.02rem;
+
+line-height: 1.8;
+}
+
+.trial-final {
+color: var(--dark) !important;
+
+font-weight: 620;
+}
+
+
+/* =========================================================
+LET'S TALK
+========================================================= */
+
+.talk {
+padding-top: 150px;
+
+padding-bottom: 100px;
+}
+
+.talk-inner {
+text-align: center;
+}
+
+.talk-inner .lead {
+margin:
+0
+auto
+55px;
+}
+
+.contact-form {
+max-width: 850px;
+
+margin:
+0
+auto;
+
+text-align: left;
+}
+
+.form-row {
+display: grid;
+
+grid-template-columns:
+1fr
+1fr;
+
+gap: 20px;
+}
+
+.form-field {
+margin-bottom: 20px;
+}
+
+.form-field label {
+display: block;
+
+margin-bottom: 8px;
+
+font-size: 0.67rem;
+
+font-weight: 750;
+
+letter-spacing: 0.11em;
+
+text-transform: uppercase;
+}
+
+.optional {
+color: var(--gray);
+
+font-weight: 400;
+
+letter-spacing: 0;
+text-transform: none;
+}
+
+input,
+textarea {
+width: 100%;
+
+padding:
+13px
+14px;
+
+border:
+1px solid
+#cdd4dd;
+
+border-radius: 2px;
+
+background: white;
+
+outline: none;
+
+transition:
+border-color 0.2s ease,
+box-shadow 0.2s ease;
+}
+
+textarea {
+min-height: 130px;
+
+resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+border-color: var(--blue);
+
+box-shadow:
+0 0 0 3px
+rgba(
+23,
+105,
+210,
+0.08
+);
+}
+
+.send-button {
+padding:
+15px
+25px;
+
+border: 0;
+
+background: var(--dark);
+
+color: white;
+
+font-size: 0.68rem;
+
+font-weight: 800;
+
+letter-spacing: 0.13em;
+
+cursor: pointer;
+
+transition:
+background 0.2s ease,
+transform 0.2s ease;
+}
+
+.send-button:hover {
+background: var(--blue);
+
+transform: translateY(-1px);
+}
+
+.form-note {
+margin-top: 12px;
+
+color: var(--gray);
+
+font-size: 0.75rem;
+}
+
+.email-direct {
+display: flex;
+
+justify-content: center;
+
+gap: 10px;
+
+flex-wrap: wrap;
+
+margin-top: 55px;
+
+padding-top: 28px;
+
+border-top:
+1px solid
+var(--light-gray);
+
+font-size: 0.88rem;
+}
+
+.email-direct span {
+color: var(--gray);
+}
+
+.email-direct a {
+color: var(--blue);
+
+font-weight: 650;
+}
+
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.site-footer {
+display: flex;
+
+justify-content: space-between;
+
+gap: 20px;
+
+padding:
+25px
+5vw;
+
+border-top:
+1px solid
+var(--light-gray);
+
+color: var(--gray);
+
+font-size: 0.62rem;
+
+letter-spacing: 0.11em;
+}
+
+
+/* =========================================================
+SCROLL REVEAL ANIMATION
+========================================================= */
+
+.reveal {
+opacity: 0;
+
+transform: translateY(22px);
+
+transition:
+opacity 0.75s ease,
+transform 0.75s
+cubic-bezier(
+0.2,
+0.7,
+0.2,
+1
+);
+}
+
+.reveal.visible {
+opacity: 1;
+
+transform: translateY(0);
+}
+
+
+/* =========================================================
+TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+.nav-links {
+display: none;
+}
+
+.provide-layout,
+.trial-layout {
+grid-template-columns: 1fr;
+}
+
+.categories,
+.care-grid {
+grid-template-columns:
+1fr
+1fr;
+}
+
+.cooler-placeholder {
+margin-top: 30px;
+}
+
+.trial-number span {
+font-size: 9rem;
+}
+
+}
+
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+:root {
+--header-height: 64px;
+}
+
+.site-header {
+padding: 0 6vw;
+}
+
+.section {
+padding:
+82px
+6vw;
+}
+
+.opening-content {
+width: 90vw;
+}
+
+.temporary-logo {
+font-size: 10vw;
+}
+
+.temporary-amenities {
+font-size: 0.7rem;
+
+letter-spacing: 0.24em;
+
+gap: 8px;
+}
+
+.temporary-amenities-line {
+width: 30px;
+}
+
+.opening-tagline {
+font-size: 0.87rem;
+}
+
+.categories,
+.care-grid {
+grid-template-columns: 1fr;
+}
+
+.category,
+.category:not(:first-child) {
+padding:
+28px
+0;
+
+border-right: 0;
+
+border-top:
+1px solid
+var(--light-gray);
+}
+
+.category:first-child {
+border-top: 0;
+}
+
+.category-number {
+margin-bottom: 20px;
+}
+
+.care-card,
+.care-card:not(:first-child) {
+padding:
+28px
+0;
+
+border-right: 0;
+
+border-top:
+1px solid
+var(--light-gray);
+}
+
+.care-card:first-child {
+border-top: 0;
+}
+
+.care-number {
+margin-bottom: 20px;
+}
+
+.facility-selector {
+align-items: stretch;
+}
+
+.facility-button,
+.facility-button:first-child {
+padding:
+15px
+12px;
+}
+
+.facility-button::after {
+left: 12px;
+right: 12px;
+}
+
+.facility-button:first-child::after {
+left: 12px;
+}
+
+.facility-content {
+min-height: 270px;
+}
+
+.form-row {
+grid-template-columns: 1fr;
+
+gap: 0;
+}
+
+.site-footer {
+flex-direction: column;
+}
+
+}
+
+
+/* =========================================================
+REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+html {
+scroll-behavior: auto;
+}
+
+*,
+*::before,
+*::after {
+animation-duration: 0.01ms !important;
+
+animation-iteration-count: 1 !important;
+
+transition-duration: 0.01ms !important;
+}
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+HEADER
+======================================================== -->
+
+<header
+class="site-header"
+id="siteHeader"
+>
+
+<a
+href="#top"
+class="brand"
+aria-label="Cyber Shelf Amenities home"
+>
+
+<span>
+CYBER SHELF
+</span>
+
+<span class="brand-amenities">
+
+<span class="brand-line"></span>
+
+AMENITIES
+
+<span class="brand-line"></span>
+
+</span>
+
+</a>
+
+
+<nav class="nav-links">
+
+<a href="#provide">
+What We Provide
+</a>
+
+<a href="#people">
+For Your People
+</a>
+
+<a href="#care">
+How We Take Care Of It
+</a>
+
+<a href="#trial">
+90-Day Trial
+</a>
+
+<a
+href="#talk"
+class="nav-contact"
+>
+Let's Talk
+</a>
+
+</nav>
+
+</header>
+
+
+
+<!-- =======================================================
+TOP / OPENING SCREEN
+======================================================== -->
+
+<div id="top"></div>
+
+<section
+class="opening"
+id="opening"
+>
+
+<div class="opening-content">
+
+
+<!--
+TEMPORARY VERSION
+
+Later, your real transparent image
+will replace this.
+-->
+
+<div class="temporary-logo">
+
+CYBER SHELF
+
+<div class="temporary-amenities">
+
+<span class="temporary-amenities-line"></span>
+
+AMENITIES
+
+<span class="temporary-amenities-line"></span>
+
+</div>
+
+</div>
+
+
+<p class="opening-tagline">
+For the people who matter most.
+</p>
+
+</div>
+
+
+<div class="scroll-hint">
+SCROLL
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+WHAT WE PROVIDE
+======================================================== -->
+
+<section
+class="section"
+id="provide"
+>
+
+<div class="section-inner">
+
+
+<div class="provide-layout">
+
+
+<div class="reveal">
+
+<p class="eyebrow">
+WHAT WE PROVIDE
+</p>
+
+<h1>
+A Convenient Amenity, Fully Managed by Us.
+</h1>
+
+<p class="lead">
+Cyber Shelf Amenities provides convenient access
+to snacks, drinks and everyday essentials through
+a professionally maintained smart cooler, giving
+your facility a simple way to offer more convenience
+to the people it serves.
+</p>
+
+</div>
+
+
+<!-- TEMPORARY COOLER IMAGE -->
+
+<div
+class="cooler-placeholder reveal"
+aria-label="Smart cooler image placeholder"
+>
+
+<div class="cooler-title">
+SMART COOLER
+</div>
+
+<div class="cooler-shelves">
+
+<div class="cooler-shelf"></div>
+
+<div class="cooler-shelf"></div>
+
+<div class="cooler-shelf"></div>
+
+<div class="cooler-shelf"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- FOUR CATEGORIES -->
+
+<div class="categories">
+
+
+<article class="category reveal">
+
+<div class="category-number">
+01
+</div>
+
+<h3>
+DRINKS
+</h3>
+
+<p>
+A selection of cold beverages to keep people
+refreshed throughout their visit.
+</p>
+
+</article>
+
+
+<article class="category reveal">
+
+<div class="category-number">
+02
+</div>
+
+<h3>
+SNACKS
+</h3>
+
+<p>
+Convenient options for a quick bite when people
+need a little something extra.
+</p>
+
+</article>
+
+
+<article class="category reveal">
+
+<div class="category-number">
+03
+</div>
+
+<h3>
+ESSENTIALS
+</h3>
+
+<p>
+Everyday items that can make the unexpected
+a little easier to handle.
+</p>
+
+</article>
+
+
+<article class="category reveal">
+
+<div class="category-number">
+04
+</div>
+
+<h3>
+EVERYDAY NEEDS
+</h3>
+
+<p>
+Practical products that can be useful when
+someone needs something while they're here.
+</p>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+FOR THE PEOPLE WHO MATTER MOST
+======================================================== -->
+
+<section
+class="section tinted"
+id="people"
+>
+
+<div class="section-inner">
+
+
+<div class="section-heading reveal">
+
+<p class="eyebrow">
+FOR THE PEOPLE WHO MATTER MOST
+</p>
+
+<h2>
+A Little Convenience Goes a Long Way.
+</h2>
+
+<p class="lead narrow">
+The people who spend time at your facility don't
+always arrive with everything they'll need.
+Sometimes, a cold drink, a quick snack or an
+everyday essential can make their visit a little easier.
+</p>
+
+</div>
+
+
+
+<!--
+THE BUTTONS ARE INTENTIONALLY SUBTLE.
+
+Someone can simply see these as facility types
+and keep scrolling.
+
+Someone who notices them can click them.
+-->
+
+<div
+class="facility-selector reveal"
+role="tablist"
+aria-label="Facility types"
+>
+
+
+<button
+class="facility-button active"
+data-facility="general"
+role="tab"
+aria-selected="true"
+>
+ALL FACILITIES
+</button>
+
+
+<button
+class="facility-button"
+data-facility="gyms"
+role="tab"
+aria-selected="false"
+>
+GYMS
+</button>
+
+
+<button
+class="facility-button"
+data-facility="warehouses"
+role="tab"
+aria-selected="false"
+>
+WAREHOUSES
+</button>
+
+
+<button
+class="facility-button"
+data-facility="daycares"
+role="tab"
+aria-selected="false"
+>
+DAYCARES
+</button>
+
+
+<button
+class="facility-button"
+data-facility="churches"
+role="tab"
+aria-selected="false"
+>
+CHURCHES
+</button>
+
+
+<button
+class="facility-button"
+data-facility="offices"
+role="tab"
+aria-selected="false"
+>
+OFFICES
+</button>
+
+
+<button
+class="facility-button"
+data-facility="residential"
+role="tab"
+aria-selected="false"
+>
+RESIDENTIAL
+</button>
+
+
+</div>
+
+
+
+<!-- FACILITY CONTENT -->
+
+<div
+class="facility-content"
+aria-live="polite"
+>
+
+
+<!-- GENERAL -->
+
+<div
+class="facility-panel active"
+data-panel="general"
+>
+
+<h3>
+Designed around the people your facility serves.
+</h3>
+
+<p>
+Offering convenient access to these products is
+a simple way to add value to the experience you
+provide, whether you're serving members,
+employees, residents, families or guests.
+</p>
+
+</div>
+
+
+
+<!-- GYMS -->
+
+<div
+class="facility-panel"
+data-panel="gyms"
+>
+
+<h3>
+Designed around your members.
+</h3>
+
+<p>
+Members come to your facility to improve their
+health and wellness. Convenient access to drinks,
+snacks and everyday essentials can make their
+visit a little easier without taking attention
+away from what your gym does best.
+</p>
+
+</div>
+
+
+
+<!-- WAREHOUSES -->
+
+<div
+class="facility-panel"
+data-panel="warehouses"
+>
+
+<h3>
+Designed around your employees.
+</h3>
+
+<p>
+Long shifts don't always leave time for another
+stop. Giving employees convenient access to
+drinks, snacks and everyday essentials right
+where they work is a simple way to support them
+throughout the day.
+</p>
+
+</div>
+
+
+
+<!-- DAYCARES -->
+
+<div
+class="facility-panel"
+data-panel="daycares"
+>
+
+<h3>
+Designed around your staff and families.
+</h3>
+
+<p>
+Staff, families and visitors all spend time in
+your facility. A convenient amenity can provide
+drinks, snacks and everyday essentials during
+busy mornings, afternoons and pickups without
+creating another responsibility for your team.
+</p>
+
+</div>
+
+
+
+<!-- CHURCHES -->
+
+<div
+class="facility-panel"
+data-panel="churches"
+>
+
+<h3>
+Designed around your congregation and guests.
+</h3>
+
+<p>
+Congregation members, volunteers and guests
+spend time in your building throughout the week.
+Cyber Shelf offers a simple amenity for the
+people already gathering in your space.
+</p>
+
+</div>
+
+
+
+<!-- OFFICES -->
+
+<div
+class="facility-panel"
+data-panel="offices"
+>
+
+<h3>
+Designed around your employees and visitors.
+</h3>
+
+<p>
+A busy workday does not always leave time for
+another stop. Convenient access to drinks,
+snacks and everyday essentials gives people
+a simple option without requiring your team
+to manage it.
+</p>
+
+</div>
+
+
+
+<!-- RESIDENTIAL -->
+
+<div
+class="facility-panel"
+data-panel="residential"
+>
+
+<h3>
+Designed around your residents and guests.
+</h3>
+
+<p>
+Residents and guests do not always have
+everything they need close at hand. A
+professionally maintained amenity can add
+a little convenience to everyday life without
+creating another task for your property team.
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+HOW WE TAKE CARE OF IT
+======================================================== -->
+
+<section
+class="section"
+id="care"
+>
+
+<div class="section-inner">
+
+
+<div class="section-heading reveal">
+
+<p class="eyebrow">
+HOW WE TAKE CARE OF IT
+</p>
+
+<h2>
+You Provide the Space. We Handle the Rest.
+</h2>
+
+<p class="lead narrow">
+From installation to ongoing service,
+Cyber Shelf Amenities takes care of the cooler
+so your team doesn't have to.
+</p>
+
+</div>
+
+
+
+<div class="care-grid">
+
+
+<article class="care-card reveal">
+
+<span class="care-number">
+01
+</span>
+
+<h3>
+WE STOCK IT
+</h3>
+
+<p>
+We keep the cooler stocked with the products
+your people want and monitor what's moving.
+</p>
+
+</article>
+
+
+<article class="care-card reveal">
+
+<span class="care-number">
+02
+</span>
+
+<h3>
+WE CLEAN IT
+</h3>
+
+<p>
+The cooler is cleaned and cared for as part
+of every restock, keeping it looking professional
+in your facility.
+</p>
+
+</article>
+
+
+<article class="care-card reveal">
+
+<span class="care-number">
+03
+</span>
+
+<h3>
+WE MAINTAIN IT
+</h3>
+
+<p>
+We monitor the cooler and take care of
+maintenance when it's needed.
+</p>
+
+</article>
+
+
+<article class="care-card reveal">
+
+<span class="care-number">
+04
+</span>
+
+<h3>
+WE MANAGE IT
+</h3>
+
+<p>
+From product selection to restocking and
+service, we handle the day-to-day management.
+</p>
+
+</article>
+
+
+</div>
+
+
+
+<div class="statement reveal">
+
+<p>
+Your team shouldn't have to take on another
+responsibility to provide another amenity.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+90 DAY TRIAL
+======================================================== -->
+
+<section
+class="section tinted"
+id="trial"
+>
+
+<div class="section-inner">
+
+
+<div class="trial-layout">
+
+
+<div class="trial-number reveal">
+
+<span>
+90
+</span>
+
+<small>
+DAYS
+</small>
+
+</div>
+
+
+<div class="trial-copy reveal">
+
+<p class="eyebrow">
+A 90-DAY TRIAL, WITH TIME TO SEE WHAT WORKS.
+</p>
+
+<h2>
+Experience it before you decide.
+</h2>
+
+
+<p>
+Every facility is different. A 90-day trial
+gives you and your people time to experience
+the amenity. It gives us time to see what
+products people actually use, and it gives
+you time to determine whether Cyber Shelf
+Amenities is a good fit for your facility.
+</p>
+
+
+<p>
+We monitor product demand and can adjust
+the selection based on what your people
+actually want.
+</p>
+
+
+<p class="trial-final">
+The goal isn't to ask you to commit before
+you know whether it works. It's to give you
+the opportunity to experience it for yourself.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+LET'S TALK
+======================================================== -->
+
+<section
+class="section talk"
+id="talk"
+>
+
+<div class="section-inner talk-inner reveal">
+
+
+<p class="eyebrow">
+LET'S TALK
+</p>
+
+
+<h2>
+Let's Talk
+</h2>
+
+
+<p class="lead narrow">
+
+Interested in bringing Cyber Shelf Amenities
+to your facility? I'd be happy to answer your
+questions, discuss your facility's needs and
+explore whether a 90-day trial would be a good fit.
+
+</p>
+
+
+
+<!--
+IMPORTANT:
+
+This form does NOT require a paid form service.
+
+When submitted, it opens the visitor's email
+application and prepares an email addressed to:
+
+CyberShelfAmenities@gmail.com
+
+We can replace this with a true online form
+later if you decide you want one.
+-->
+
+<form
+class="contact-form"
+id="contactForm"
+>
+
+
+<div class="form-row">
+
+
+<div class="form-field">
+
+<label for="name">
+Name
+</label>
+
+<input
+type="text"
+id="name"
+name="name"
+required
+>
+
+</div>
+
+
+<div class="form-field">
+
+<label for="facility">
+Facility
+</label>
+
+<input
+type="text"
+id="facility"
+name="facility"
+>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-row">
+
+
+<div class="form-field">
+
+<label for="email">
+Email
+</label>
+
+<input
+type="email"
+id="email"
+name="email"
+required
+>
+
+</div>
+
+
+<div class="form-field">
+
+<label for="phone">
+Phone
+<span class="optional">
+optional
+</span>
+</label>
+
+<input
+type="tel"
+id="phone"
+name="phone"
+>
+
+</div>
+
+
+</div>
+
+
+
+<div class="form-field">
+
+<label for="message">
+Message
+</label>
+
+<textarea
+id="message"
+name="message"
+rows="5"
+required
+></textarea>
+
+</div>
+
+
+
+<button
+type="submit"
+class="send-button"
+>
+SEND MESSAGE
+</button>
+
+
+<p class="form-note">
+This opens your email app with a prepared message.
+</p>
+
+
+</form>
+
+
+
+<div class="email-direct">
+
+<span>
+Prefer email?
+</span>
+
+<a
+href="mailto:CyberShelfAmenities@gmail.com"
+>
+CyberShelfAmenities@gmail.com
+</a>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =======================================================
+FOOTER
+======================================================== -->
+
+<footer class="site-footer">
+
+<div>
+CYBER SHELF AMENITIES
+</div>
+
+<div>
+For the people who matter most.
+</div>
+
+</footer>
+
+
+
+<!-- =======================================================
+JAVASCRIPT
+======================================================== -->
+
+<script>
+
+
+/* =======================================================
+OPENING SCREEN / HEADER
+======================================================== */
+
+const opening =
+document.getElementById("opening");
+
+const siteHeader =
+document.getElementById("siteHeader");
+
+
+function updateOpening() {
+
+const scrollPosition =
+window.scrollY ||
+window.pageYOffset;
+
+
+if (scrollPosition > 12) {
+
+opening.classList.add("scrolling");
+
+siteHeader.classList.add("visible");
+
+} else {
+
+/*
+When the user returns all the way
+to the top, the completed opening
+screen is restored.
+
+The opening animation does NOT replay.
+*/
+
+opening.classList.remove("scrolling");
+
+siteHeader.classList.remove("visible");
+
+}
+
+}
+
+
+window.addEventListener(
+"scroll",
+updateOpening,
+{
+passive: true
+}
+);
+
+
+window.addEventListener(
+"load",
+updateOpening
+);
+
+
+
+/* =======================================================
+SCROLL REVEAL
+======================================================== */
+
+const revealElements =
+document.querySelectorAll(".reveal");
+
+
+const revealObserver =
+new IntersectionObserver(
+
+function(entries) {
+
+entries.forEach(
+function(entry) {
+
+if (entry.isIntersecting) {
+
+entry.target.classList.add(
+"visible"
+);
+
+revealObserver.unobserve(
+entry.target
+);
+
+}
+
+}
+);
+
+},
+
+{
+threshold: 0.12,
+
+rootMargin:
+"0px 0px -5% 0px"
+}
+
+);
+
+
+revealElements.forEach(
+function(element) {
+
+revealObserver.observe(element);
+
+}
+);
+
+
+
+/* =======================================================
+FACILITY INTERACTION
+======================================================== */
+
+const facilityButtons =
+document.querySelectorAll(
+".facility-button"
+);
+
+const facilityPanels =
+document.querySelectorAll(
+".facility-panel"
+);
+
+
+facilityButtons.forEach(
+function(button) {
+
+button.addEventListener(
+"click",
+function() {
+
+
+const facility =
+button.dataset.facility;
+
+
+/*
+Update selected button
+*/
+
+facilityButtons.forEach(
+function(otherButton) {
+
+const isActive =
+otherButton === button;
+
+otherButton.classList.toggle(
+"active",
+isActive
+);
+
+otherButton.setAttribute(
+"aria-selected",
+isActive
+? "true"
+: "false"
+);
+
+}
+);
+
+
+/*
+Change content
+*/
+
+facilityPanels.forEach(
+function(panel) {
+
+const shouldShow =
+panel.dataset.panel ===
+facility;
+
+panel.classList.toggle(
+"active",
+shouldShow
+);
+
+}
+);
+
+}
+);
+
+}
+);
+
+
+
+/* =======================================================
+CONTACT FORM
+======================================================== */
+
+const contactForm =
+document.getElementById(
+"contactForm"
+);
+
+
+contactForm.addEventListener(
+"submit",
+function(event) {
+
+event.preventDefault();
+
+
+const name =
+document.getElementById(
+"name"
+).value;
+
+const facility =
+document.getElementById(
+"facility"
+).value;
+
+const email =
+document.getElementById(
+"email"
+).value;
+
+const phone =
+document.getElementById(
+"phone"
+).value;
+
+const message =
+document.getElementById(
+"message"
+).value;
+
+
+const subject =
+"Cyber Shelf Amenities - Facility Inquiry";
+
+
+const body =
+
+"Name: " +
+name +
+
+"\nFacility: " +
+facility +
+
+"\nEmail: " +
+email +
+
+"\nPhone: " +
+phone +
+
+"\n\nMessage:\n" +
+message;
+
+
+const mailto =
+"mailto:CyberShelfAmenities@gmail.com" +
+
+"?subject=" +
+encodeURIComponent(subject) +
+
+"&body=" +
+encodeURIComponent(body);
+
+
+window.location.href =
+mailto;
+
+}
+);
+
+
+</script>
+
+
+</body>
+</html>
