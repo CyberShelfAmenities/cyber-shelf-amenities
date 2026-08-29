@@ -225,68 +225,24 @@ pointer-events: none;
 }
 
 
-/* TEMPORARY LOGO */
+/* OPENING LOGO */
 
-/*
-THIS WILL EVENTUALLY BE REPLACED
-WITH YOUR REAL TRANSPARENT IMAGE.
-*/
+.opening-logo {
+  display: block;
 
-.temporary-logo {
-display: inline-block;
+  width: min(82vw, 900px);
+  height: auto;
 
-font-size: clamp(2.2rem, 7vw, 5.8rem);
+  margin: 0 auto;
 
-font-weight: 850;
+  opacity: 0;
 
-letter-spacing: 0.17em;
-
-line-height: 0.95;
-
-opacity: 0;
-
-animation:
-openingFadeIn
-0.9s
-0.25s
-cubic-bezier(0.2, 0.7, 0.2, 1)
-forwards;
-}
-
-
-/* AMENITIES + LINES */
-
-.temporary-amenities {
-display: flex;
-
-align-items: center;
-justify-content: center;
-
-gap: 12px;
-
-margin-top: 10px;
-
-font-size: clamp(0.8rem, 2vw, 1.5rem);
-
-font-weight: 700;
-
-letter-spacing: 0.3em;
-
-opacity: 0;
-
-animation:
-openingFadeIn
-1.3s
-1.05s
-cubic-bezier(0.2, 0.7, 0.2, 1)
-forwards;
-}
-
-.temporary-amenities-line {
-width: clamp(30px, 8vw, 120px);
-height: 2px;
-
-background: var(--blue);
+  animation:
+    openingFadeIn
+    0.9s
+    0.25s
+    cubic-bezier(0.2, 0.7, 0.2, 1)
+    forwards;
 }
 
 
@@ -1339,28 +1295,11 @@ id="opening"
 <div class="opening-content">
 
 
-<!--
-TEMPORARY VERSION
-
-Later, your real transparent image
-will replace this.
--->
-
-<div class="temporary-logo">
-
-CYBER SHELF
-
-<div class="temporary-amenities">
-
-<span class="temporary-amenities-line"></span>
-
-AMENITIES
-
-<span class="temporary-amenities-line"></span>
-
-</div>
-
-</div>
+<img
+class="opening-logo"
+src="CyberShelfLogoNoTagline.png"
+alt="Cyber Shelf Amenities"
+>
 
 
 <p class="opening-tagline">
