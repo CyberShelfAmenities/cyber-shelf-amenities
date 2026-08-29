@@ -450,113 +450,20 @@ align-items: center;
 }
 
 
-/* TEMPORARY COOLER */
 
-.cooler-placeholder {
-width: 100%;
-max-width: 360px;
+/* SMART COOLER IMAGE */
 
-height: 510px;
+.cooler-image {
+  width: 100%;
+  max-width: 380px;
 
-margin: 0 auto;
+  height: auto;
 
-position: relative;
+  display: block;
 
-border:
-1px solid
-#c5ccd5;
-
-border-radius: 18px;
-
-background:
-linear-gradient(
-135deg,
-#f9fafc,
-#e8edf3
-);
-
-box-shadow:
-0 30px 70px
-rgba(20, 30, 45, 0.1);
-
-overflow: hidden;
+  margin: 0 auto;
 }
 
-.cooler-placeholder::before {
-content: "";
-
-position: absolute;
-
-inset: 0;
-
-background:
-linear-gradient(
-115deg,
-rgba(255,255,255,0.85),
-transparent 38%,
-rgba(255,255,255,0.25) 39%,
-transparent 57%
-);
-}
-
-.cooler-title {
-position: absolute;
-
-top: 20px;
-left: 20px;
-
-color: var(--gray);
-
-font-size: 0.58rem;
-
-letter-spacing: 0.18em;
-}
-
-.cooler-shelves {
-position: absolute;
-
-top: 95px;
-right: 25px;
-bottom: 28px;
-left: 25px;
-
-display: grid;
-
-grid-template-rows:
-repeat(4, 1fr);
-
-gap: 15px;
-}
-
-.cooler-shelf {
-position: relative;
-
-border-bottom:
-1px solid
-#c7ced8;
-}
-
-.cooler-shelf::after {
-content: "";
-
-position: absolute;
-
-left: 8%;
-right: 8%;
-bottom: 15px;
-
-height: 45%;
-
-border-radius: 5px;
-
-background:
-linear-gradient(
-90deg,
-#dce3ec,
-#f9fbfd,
-#d2dae5
-);
-}
 
 
 /* =========================================================
@@ -1507,28 +1414,21 @@ to the people it serves.
 </div>
 
 
-<!-- TEMPORARY COOLER IMAGE -->
+<p class="lead">
+Cyber Shelf Amenities provides convenient access
+to snacks, drinks and everyday essentials through
+a professionally maintained smart cooler, giving
+your facility a simple way to offer more convenience
+to the people it serves.
+</p>
 
-<div
-class="cooler-placeholder reveal"
-aria-label="Smart cooler image placeholder"
+</div>
+
+<img
+class="cooler-image reveal"
+src="Smart%20Cooler.png"
+alt="Cyber Shelf Amenities Smart Cooler"
 >
-
-<div class="cooler-title">
-SMART COOLER
-</div>
-
-<div class="cooler-shelves">
-
-<div class="cooler-shelf"></div>
-
-<div class="cooler-shelf"></div>
-
-<div class="cooler-shelf"></div>
-
-<div class="cooler-shelf"></div>
-
-</div>
 
 </div>
 
